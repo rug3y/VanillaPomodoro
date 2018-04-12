@@ -14,7 +14,7 @@
 
   <div class="controls">
     <div class="controls__set">
-      <input id="minutesInput" type="number" step="1" min="0" max="60" class="controls__input --ctr-border">
+      <input id="minutesInput" type="number" step="1" min="1" max="60" value="15" class="controls__input --ctr-border" required>
       <button class="controls__set__button --ctr-border">Set Mins</button>
     </div>
     <div class="controls__stop">
@@ -30,9 +30,6 @@
 
   <audio class="siren" src="siren.mp3"></audio>
 
-</body>
-</html>
-
   <style>
     body {
       transition-property: background-color;
@@ -40,10 +37,10 @@
     }
 
     .header {
-      width: 50%;
+      width:   50%;
       display: block;
-      margin: 0 auto;
-      color: white;
+      margin:  0 auto;
+      color:   white;
     }
 
     .header h1 {
@@ -52,7 +49,7 @@
 
     .--fancy {
       font-family: 'Gugi', cursive;
-      color: #33ff33;
+      color:       #33ff33;
     }
 
     .--bg-black {
@@ -64,35 +61,42 @@
     }
 
     .controls {
-      background: #333333;
-      width: 50%;
-      height: 100px;
-      margin: 0 auto;
-      margin-top: 20px;
-      border-radius: 20px;
-      font-family: 'Gugi', cursive;
-      color: #33ff33;
-      display: flex;
+      background:      #333333;
+      width:           50%;
+      height:          100px;
+      margin:          0 auto;
+      margin-top:      20px;
+      border-radius:   20px;
+      font-family:     'Gugi', cursive;
+      color:           #33ff33;
+      display:         flex;
       justify-content: center;
     }
 
     .controls__set, .controls__stop {
-      flex: 1;
-      display: flex;
+      flex:            1;
+      display:         flex;
       justify-content: center;
-      align-content: center;
-      align-items: center;
+      align-content:   center;
+      align-items:     center;
+    }
+
+    input[type=number] {
+      -moz-appearance: textfield;
     }
 
     .controls input {
-      height: 48px;
+      height:       48px;
       margin-right: 10px;
-      font-size: .8vw;
-      width: 4em;
+      font-size:    .8vw;
+      width:        4em;
+      font-size:    2vw;
+      padding:      0;
+      text-align:   center;
     }
 
     .controls button {
-      height: 50px;
+      height:    50px;
       font-size: 1vw;
     }
 
@@ -106,28 +110,28 @@
 
     .--ctr-border {
       border-radius: 6px;
-      border: none;
+      border:        none;
     }
 
     .timer {
-      background: #333333;
-      width: 50%;
-      margin: 0 auto;
-      margin-top: 20px;
+      background:    #333333;
+      width:         50%;
+      margin:        0 auto;
+      margin-top:    20px;
       border-radius: 20px;
-      display: flex;
-      align-items: center;
-      text-align: center;
-      font-family: 'Gugi', cursive;
-      color: #33ff33;
+      display:       flex;
+      align-items:   center;
+      text-align:    center;
+      font-family:   'Gugi', cursive;
+      color:         #33ff33;
     }
 
     .minutes, .seconds {
-      font-size: 10vw;
-      flex: 1;
-      display: flex;
-      align-items: center;
-      text-align: center;
+      font-size:       10vw;
+      flex:            1;
+      display:         flex;
+      align-items:     center;
+      text-align:      center;
       justify-content: center;
     }
 
