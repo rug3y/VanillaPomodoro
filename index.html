@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Vanilla Timer</title>
+  <link href="https://fonts.googleapis.com/css?family=Gugi" rel="stylesheet"> 
+</head>
+
+<body class="--bg-black">
+  <div class="header">
+    <h1>Vanilla <span class="--fancy">Timer</span></h1>
+  </div>
+
+  <div class="controls">
+    <div class="controls__set">
+      <input id="minutesInput" type="number" step="1" min="0" max="60" class="controls__input --ctr-border">
+      <button class="controls__set__button --ctr-border">Set Mins</button>
+    </div>
+    <div class="controls__stop">
+      <button class="controls__stop__button --ctr-border">Stop</button>
+    </div>
+  </div>
+
+  <div class="timer">
+    <div class="minutes"></div>
+    <span class="spacer">:</span>
+    <div class="seconds"></div>
+  </div>
+
+  <audio class="siren" src="siren.mp3"></audio>
+
+</body>
+</html>
+
+  <style>
+    body {
+      transition-property: background-color;
+      transition-duration: 0.5s;
+    }
+
+    .header {
+      width: 50%;
+      display: block;
+      margin: 0 auto;
+      color: white;
+    }
+
+    .header h1 {
+      font-size: 5vw;
+    }
+
+    .--fancy {
+      font-family: 'Gugi', cursive;
+      color: #33ff33;
+    }
+
+    .--bg-black {
+      background: black;
+    }
+
+    .--bg-red {
+      background: red;
+    }
+
+    .controls {
+      background: #333333;
+      width: 50%;
+      height: 100px;
+      margin: 0 auto;
+      margin-top: 20px;
+      border-radius: 20px;
+      font-family: 'Gugi', cursive;
+      color: #33ff33;
+      display: flex;
+      justify-content: center;
+    }
+
+    .controls__set, .controls__stop {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-content: center;
+      align-items: center;
+    }
+
+    .controls input {
+      height: 48px;
+      margin-right: 10px;
+      font-size: .8vw;
+      width: 4em;
+    }
+
+    .controls button {
+      height: 50px;
+      font-size: 1vw;
+    }
+
+    .controls__set__button {
+      width: 120px;
+    }
+
+    .controls__stop__button {
+      width: 80px;
+    }
+
+    .--ctr-border {
+      border-radius: 6px;
+      border: none;
+    }
+
+    .timer {
+      background: #333333;
+      width: 50%;
+      margin: 0 auto;
+      margin-top: 20px;
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      text-align: center;
+      font-family: 'Gugi', cursive;
+      color: #33ff33;
+    }
+
+    .minutes, .seconds {
+      font-size: 10vw;
+      flex: 1;
+      display: flex;
+      align-items: center;
+      text-align: center;
+      justify-content: center;
+    }
+
+    .spacer {
+      font-size: 10vw;
+    }
+  </style>
+
+  <script>
+    const setButton = document.querySelector('.controls__set__button');
+    const stopButton = document.querySelector('.controls__stop__button');
+    const minutesInput = document.querySelector('.controls__input');
+
+    stopButton.addEventListener('click', stopTimer);
+    setButton.addEventListener('click', function(){
+      setTimer(minutesInput.value);
+    });
+
+    const minutesDisplay = document.querySelector('.minutes');
+    const secondsDisplay = document.querySelector('.seconds');
+
+    minutesDisplay.innerHTML = '<span>00</span>';
+    secondsDisplay.innerHTML = '<span>00</span';
+
+    function setTimer(minutes) {
+      let time = new Date();
+      let newTime = time.getTime() + (minutes * 60000);
+      time.setTime(newTime);
+
+      timer = time;
+      return time;
+    }
+
+    function stopTimer() {
+      timer = null;
+      minutesDisplay.innerHTML = '<span>00</span>';
+      secondsDisplay.innerHTML = '<span>00</span';
+    }
+
+    let timer = null;
+    let alarmOn = false;
+
+    function alarm() {
+      // 10 second alarm
+      let i = 0;
+      let alrm = setInterval(function() {
+        // Select audio element with siren and play
+        let siren = document.querySelector('.siren');
+        siren.play();
+        // Select body, change color every interval
+        let body = document.querySelector('.--bg-black');
+        if(body) {
+          body.className = '--bg-red';
+        } else {
+          body = document.querySelector('.--bg-red');
+          body.className = '--bg-black';
+        };
+        // Clear interval when counter reaches 10 (10 seconds)
+        i++;
+        if(i === 10) {
+          clearInterval(alrm);
+          siren.pause();
+        }
+      }, 1000);
+    }
+
+    function updateTimer() {
+      const now = new Date();
+      if(timer) {
+
+        const timeRemaining = new Date(timer.getTime() - now.getTime());
+        const minutes = timeRemaining.getMinutes();
+        const seconds = timeRemaining.getSeconds();
+
+        minutesDisplay.innerHTML = `<span>${minutes}</span>`;
+        secondsDisplay.innerHTML = `<span>${seconds}</span>`;
+
+        if (minutes == 0 && seconds == 0) {
+          stopTimer();
+          alarm();
+        }
+      }
+    }
+
+    setInterval(updateTimer, 1000);
+
+  </script>
+</body>
+</html>
+
