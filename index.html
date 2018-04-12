@@ -195,9 +195,9 @@
     function alarm() {
       // 10 second alarm
       let i = 0;
-      let alrm = setInterval(function() {
+      const alrm = setInterval(function() {
         // Select audio element with siren and play
-        let siren = document.querySelector('.siren');
+        const siren = document.querySelector('.siren');
         siren.play();
         // Select body, change color every interval
         let body = document.querySelector('.--bg-black');
